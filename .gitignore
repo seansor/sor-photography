@@ -4,3 +4,4 @@ __pycache__/
 .c9/
 venv/
 .env
+sor_photography/.env
