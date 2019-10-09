@@ -44,10 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_forms_bootstrap',
     'accounts',
+    'storages',
     # 'products',
     # 'cart',
     # 'checkout',
-    # 'storages',
+    
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                #'django.template.context_processors.media',
+                'django.template.context_processors.media',
                 #'cart.contexts.cart_contents',
             ],
         },
@@ -118,9 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-Authentication_BACKENDS = [
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'django.backends.EmailAuth'
+    'accounts.backends.EmailAuth'
 ]
 
 
@@ -149,7 +150,7 @@ AWS_S3_OBJECT_PARMAMETERS = {
 AWS_STORAGE_BUCKET_NAME = 'sor-photography'
 AWS_S3_REGION_NAME = 'eu-west-1'
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os .getenv('AWS_SECRET_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
@@ -172,3 +173,10 @@ STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True # TLS is a form of email encryption used by gmail
+EMAIL_HOST = 'smtp.gmail.com' # smtp is the protocol used to send email
+EMAIL_HOST_USER = os.getenv("EMAIL_ADDRESS")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_PORT = 587

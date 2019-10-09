@@ -5,3 +5,5 @@ __pycache__/
 venv/
 .env
 sor_photography/.env
+.travis.yml
+Procfile
