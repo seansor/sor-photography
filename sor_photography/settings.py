@@ -45,9 +45,9 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'accounts',
     'storages',
-    # 'products',
-    # 'cart',
-    # 'checkout',
+    'products',
+    'cart',
+    'checkout',
     
 ]
 
@@ -75,7 +75,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                #'cart.contexts.cart_contents',
+                'cart.contexts.cart_contents',
             ],
         },
     },
@@ -167,7 +167,7 @@ MEDIAFILES_LOCATION = 'media'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = "https://{0}/{1}/".format(AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
