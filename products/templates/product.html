@@ -14,12 +14,9 @@
                 <div class="input-group">
                     <select name="available_sizes" id="available_sizes">
                         {% for variant in product_variants %}
-                        <option value="{{ variant.size }}">{{ variant.size }}</option>
+                        <option value="{{ variant.size }}">{{ variant.size }} @ € {{ variant.price }}</option>
                         {% endfor %}
                     </select>
-                        {% for item in product_variants %}
-                        <p class=price>{{ item.price }}</p>
-                        {% endfor %}
                     <input type="number" name="quantity" min="1" max="999" class="form-control" placeholder="Quantity" />
                     <span class="input-group-btn">
                         <button class="btn btn-success" type="submit">Add</button>

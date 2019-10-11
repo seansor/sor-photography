@@ -7,3 +7,4 @@ venv/
 sor_photography/.env
 .travis.yml
 Procfile
+static
