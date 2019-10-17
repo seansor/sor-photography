@@ -8,3 +8,6 @@ sor_photography/.env
 .travis.yml
 Procfile
 static
+static/css/styles.css
+static/js/main.js
+accounts/.~c9_invoke_ND3ITF.py

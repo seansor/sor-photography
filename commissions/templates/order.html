@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %}
+
+{% block page_title %}Order{% endblock %}
+
+{% block page_heading %}Request Commission{% endblock %}
+
+{% block content %}
+
+<form role="form" id="order-form" action="{% url 'order' %}" method="POST">
+    {% csrf_token %} 
+    {{ order_form | as_bootstrap }}
+    <button class="btn btn-secondary" type="submit">Request Quote</button>
+</form>
+{% endblock %}

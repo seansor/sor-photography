@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
 import dj_database_url
 
 from dotenv import load_dotenv
@@ -48,7 +47,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'checkout',
-    
+    'commissions',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +98,21 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+    
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': os.path.join(BASE_DIR, 'db.postgresql'),
+#             'USER': 'postgres',
+#             'PASSWORD': '(Sam5542)',
+#             'HOST': '127.0.0.1',
+#             'PORT': '5050',
+#     }
+# }
+   
+    
 
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -121,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.EmailAuth'
+    'accounts.backends.EmailAuth',
 ]
 
 
@@ -181,3 +194,7 @@ EMAIL_HOST = 'smtp.gmail.com' # smtp is the protocol used to send email
 EMAIL_HOST_USER = os.getenv("EMAIL_ADDRESS")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 EMAIL_PORT = 587
+
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+    

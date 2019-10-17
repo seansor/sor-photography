@@ -1,5 +1,12 @@
 from django.shortcuts import render, redirect, reverse
 
+import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 def view_cart(request):
@@ -13,12 +20,15 @@ def add_to_cart(request, id):
     Allows users to add items to cart
     """
     quantity = int(request.POST.get('quantity'))
+    product_variant_id = request.POST.get('size-select')
+    
+    logger.debug(product_variant_id)
     
     cart = request.session.get('cart', {})
-    if id in cart:
-        cart[id] = int(cart[id]) +  quantity
+    if product_variant_id in cart:
+        cart[product_variant_id] = int(cart[product_variant_id]) +  quantity
     else:
-        cart[id] = cart.get(id, quantity)
+        cart[product_variant_id] = cart.get(product_variant_id, quantity)
     
     request.session['cart'] = cart
     return redirect(reverse('index'))

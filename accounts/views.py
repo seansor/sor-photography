@@ -7,13 +7,12 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 
 # Create your views here.
 
-def index(request):
-    """return the index.html file"""
-    return render(request, 'index.html')
-
 @login_required
 def logout(request):
     """Log the user out"""
+    
+    # if not request.user.is_authenticated:
+    #     request.session.set_expiry(0)
     auth.logout(request)
     messages.success(request, "You have succesfully been logged out")
     return redirect(reverse('index'))
@@ -32,6 +31,7 @@ def login(request):
         if user:
             auth.login(user=user, request=request)
             messages.success(request, "You have successfully logged in!")
+            request.session.set_expiry(None)
             return redirect(reverse('index'))
         else:
             login_form.add_error(None, "Your username or password is incorrect")

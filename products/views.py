@@ -10,6 +10,10 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 
 def all_products(request):
+    # request.session.flush()
+    if not request.user.is_authenticated:
+        request.session.set_expiry(0)
+    
     products = Product.objects.all()
     collections = Collection.objects.all()
     first_product_ids = []
