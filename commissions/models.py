@@ -20,6 +20,7 @@ class Quote(models.Model):
     price_travel = models.DecimalField(max_digits=6, decimal_places=2)
     price_total = models.DecimalField(max_digits=6, decimal_places=2)
     accepted = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
     
     def __str__(self):
         return ("Id:{}, Value: €{}".format(self.id, self.price_total))

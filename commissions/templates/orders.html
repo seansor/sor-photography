@@ -8,12 +8,40 @@
 
 {% block content %}
 
-{% for order in orders %}
-<ul class="list-inline">
-  <li class="list-inline-item">{{ order.id }}</li>
-  <li class="list-inline-item">{{ order.description }}</li>
-  <li class="list-inline-item">{{ order.quote.price_total }}</li>
-  <li class="list-inline-item">{{ order.quote.accepted }}</li>
-</ul>
-{% endfor %}
+
+<table class="table table-bordered table-striped table-dark">
+    <thead>
+  <tr>
+    <th>Order ID</th>
+    <th>Subject</th>
+    <th>Quote ID</th>
+    <th>Value</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  {% for order in orders %}
+  <tr>
+    <td>{{ order.id }}</td>
+    <td>{{ order.subject }}</td>
+    {% if order.quote %}
+    <td>{{ order.quote.id}}</td>
+    <td>{{ order.quote.price_total}}</td>
+    {% if order.quote.accepted %}
+    <td><i class="fa fa-check-circle-o" aria-hidden="true">Accepted</i></td>
+    {% elif order.quote.rejected %}
+    <td><i class="fa fa-times-circle-o" aria-hidden="true">Rejected</i></td>
+    {% else %}
+    <td><i class="fa fa-clock-o" aria-hidden="true"></i>Awaiting Response</td>
+    {% endif %}
+    {% else %}
+    <td></td>
+    <td></td>
+    <td></td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}

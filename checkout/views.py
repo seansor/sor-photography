@@ -5,7 +5,8 @@ from .forms import MakePaymentForm, OrderForm
 from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
-from products.models import Product
+from products.models import ProductVariant
+from accounts.models import UserBillingInfo
 import stripe
 
 # Create your views here.
@@ -19,18 +20,20 @@ def checkout(request):
         payment_form = MakePaymentForm(request.POST)
         
         if order_form.is_valid() and payment_form.is_valid():
-            order = order_form.save(commit=False)
-            order.date = timezone.now()
-            order.save()
+            order_billing_info = order_form.save(commit=False)
+            order_billing_info.customer_id = request.user.id
+            order_billing_info.date = timezone.now()
+            order_billing_info.save()
+            
             
             cart = request.session.get('cart', {})
             total = 0
-            for id, quantity in cart.items():
-                product = get_object_or_404(Product, pk=id)
-                total += quantity * product.price
+            for product_variant_id, quantity in cart.items():
+                product_variant = get_object_or_404(ProductVariant, pk=product_variant_id)
+                total += quantity * product_variant.price
                 order_line_item = OrderLineItem(
-                    order = order,
-                    product = product,
+                    order_billing_info = order_billing_info,
+                    product_variant = product_variant,
                     quantity = quantity
                     )
                 order_line_item.save()
@@ -56,5 +59,24 @@ def checkout(request):
             messages.error(request, "We were unable to take payment with that card")
     else:
         payment_form = MakePaymentForm()
-        order_form = OrderForm()
+        
+        current_user = request.user.id
+        
+        try:
+            billing_info = UserBillingInfo.objects.get(customer_id=current_user)
+            if billing_info.remember_me:
+                order_form = OrderForm(initial={'full_name': billing_info.full_name, 
+                                                'phone_number': billing_info.phone_number,
+                                                'country': billing_info.country,
+                                                'postcode': billing_info.postcode,
+                                                'town_or_city': billing_info.town_or_city,
+                                                'street_address1': billing_info.street_address1,
+                                                'street_address2': billing_info.street_address2,
+                                                'county': billing_info.county,
+                                                'remember_me': billing_info.remember_me
+                                                })
+            else:
+                order_form = OrderForm()
+        except:
+            order_form = OrderForm()
     return render(request, 'checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE_KEY})
