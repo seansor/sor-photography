@@ -22,8 +22,11 @@
         </button>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav ml-auto">
+                {% if user.is_superuser %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'get_orders' %}"><i class="fa fa-user"></i>Orders</a></li>
+                {% endif %}
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'order' %}"><i class="fa fa-user"></i>Commissions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'create_order' %}"><i class="fa fa-user"></i>Request Commission</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user"></i> Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Log Out</a></li>
                 {% else %}

@@ -1,8 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib import auth, messages
 from django.utils import timezone
 from .forms import OrderForm
 from .models import CommissionOrder, Quote
+
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -11,10 +18,9 @@ def create_order(request):
     if request.method == 'POST':
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
-            order_form.client_id = "test"
             # process the data in form.cleaned_data as required
             order = order_form.save(commit=False)
-            order.client = request.user
+            order.customer_id = request.user.id
             order.date = timezone.now()
             order.save()
             
@@ -22,7 +28,13 @@ def create_order(request):
             return redirect(reverse('products'))
             # redirect to a new URL:
     else:
-        form = OrderForm()
+        #CommissionOrder.objects.all().delete()
+        order_form = OrderForm()
         
-    return render(request, 'order.html', {'order_form': form})
+    return render(request, 'order.html', {'order_form': order_form})
         
+
+def get_orders(request):
+    orders = CommissionOrder.objects.all()
+    
+    return render(request, 'orders.html', {'orders': orders})
