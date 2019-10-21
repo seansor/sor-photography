@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Collection, Product, ProductVariant
-from checkout.models import OrderBillingInfo
+from checkout.models import OrderInfo
 import os
 import logging
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def all_products(request):
     
-    #OrderBillingInfo.objects.all().delete()
+    # OrderInfo.objects.all().delete()
     # request.session.flush()
     if not request.user.is_authenticated:
         request.session.set_expiry(0)

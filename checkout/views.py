@@ -20,10 +20,10 @@ def checkout(request):
         payment_form = MakePaymentForm(request.POST)
         
         if order_form.is_valid() and payment_form.is_valid():
-            order_billing_info = order_form.save(commit=False)
-            order_billing_info.customer_id = request.user.id
-            order_billing_info.date = timezone.now()
-            order_billing_info.save()
+            order_info = order_form.save(commit=False)
+            order_info.customer_id = request.user.id
+            order_info.date = timezone.now()
+            order_info.save()
             
             
             cart = request.session.get('cart', {})
@@ -32,7 +32,7 @@ def checkout(request):
                 product_variant = get_object_or_404(ProductVariant, pk=product_variant_id)
                 total += quantity * product_variant.price
                 order_line_item = OrderLineItem(
-                    order_billing_info = order_billing_info,
+                    order_info = order_info,
                     product_variant = product_variant,
                     quantity = quantity
                     )

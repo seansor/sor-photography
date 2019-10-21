@@ -8,4 +8,4 @@ class OrderForm(forms.ModelForm):
     
     class Meta:
         model = CommissionOrder
-        fields = ('description', 'size', 'location')
+        exclude = ['customer', 'date']

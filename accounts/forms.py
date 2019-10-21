@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
+from .models import UserBillingInfo
 
 class UserLoginForm(forms.Form):
     """Form to log users in"""
@@ -42,3 +43,9 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError("Passwords must match")
             
         return password2
+        
+
+class BillingForm(forms.ModelForm):
+    class Meta:
+        model = UserBillingInfo
+        exclude = ['customer', 'remember_me']

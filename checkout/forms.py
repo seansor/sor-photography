@@ -1,5 +1,5 @@
 from django import forms
-from .models import OrderBillingInfo
+from .models import OrderInfo
 
 class MakePaymentForm(forms.Form):
     
@@ -15,5 +15,5 @@ class MakePaymentForm(forms.Form):
 
 class OrderForm(forms.ModelForm):
     class Meta:
-        model = OrderBillingInfo
+        model = OrderInfo
         exclude = ['customer', 'date']
