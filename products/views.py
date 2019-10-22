@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from .models import Collection, Product, ProductVariant
 from checkout.models import OrderInfo
 import os
@@ -25,7 +25,7 @@ def all_products(request):
     collection_image_names = []
     collection_names = []
     for collection in collections:
-        first_product = Product.objects.filter(collection_id=collection.id).first()
+        first_product = Product.objects.filter(collection=collection).first()
         first_product_id = first_product.id
         first_product_ids.append(first_product_id)
         collection_id = first_product.collection_id
@@ -39,13 +39,14 @@ def all_products(request):
     
     collection_details = zip(first_product_ids, collection_ids, collection_images, collection_image_names, collection_names)
     current_series = Collection.objects.get(current_series=True)
+    #return HttpResponseRedirect('/thanks')
+    
     return render(request, 'products.html', {'products': products,  'current_series': current_series,
-                'collections': collections, 'collection_details':  collection_details})
+              'collections': collections, 'collection_details':  collection_details})
 
 
 def product(request, id):
     product = Product.objects.get(id=id)
     product_variants = ProductVariant.objects.filter(product_id=id)
-    #product_variants = list(ProductVariant.objects.values(product_id=id))
-    #price_of_each_size = zip(product_variants.size, product_variants.price)
+    
     return render(request, 'product.html', {'product': product, 'product_variants': product_variants})
