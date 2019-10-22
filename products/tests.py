@@ -10,4 +10,4 @@ class productTests(TestCase):
     
     def test_str(self):
         test_name = Product(name='A Product')
-        self.assertEqual(str(test_name), 'A Product')
+        self.assertEqual(str(test_name.name), 'A Product')
