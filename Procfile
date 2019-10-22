@@ -1,0 +1,1 @@
+web: gunicorn sor-photography.wsgi:application

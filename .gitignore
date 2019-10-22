@@ -5,7 +5,6 @@ __pycache__/
 venv/
 .env
 sor_photography/.env
-Procfile
 static
 static/css/styles.css
 static/js/main.js
