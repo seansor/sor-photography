@@ -5,6 +5,9 @@ def user_quotes(request):
     
     quotes = Quote.objects.filter(order__customer=request.user.id)
     
-    quotes_count = quotes.count()
+    count = 0
+    for quote in quotes:
+        if quote.rejected == False and quote.accepted == False:
+            count += 1
 
-    return { 'quotes_count': quotes_count}
+    return { 'count': count}

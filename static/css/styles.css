@@ -21,6 +21,10 @@ h1, h2 {
     text-align: center;
 }
 
+a:hover, .btn-link:hover {
+    text-decoration: none;
+}
+
 .icon-bar {
     background-color: #fff;
 }
@@ -117,4 +121,26 @@ caption p {
 .accordion-btns {
     align-self: center;
     margin-left: auto;
+}
+
+.accordion-btns .btn {
+    width: 75px;
+    height: 30px;
+    padding: 5px;
+    margin: 5px 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-header .fa {
+    font-size: 1.5rem;
+}
+
+.card-header .fa-caret-up {
+    display: none;
+}
+
+.btn-link {
+    width: 70%;
 }

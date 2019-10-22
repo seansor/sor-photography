@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils import timezone
 from products.models import ProductVariant
 from accounts.models import UserBillingInfo
+from commissions.models import Quote
 import stripe
 
 # Create your views here.
@@ -49,7 +50,7 @@ def checkout(request):
                     messages.error(request, "Your card was declined")
                     
                 if customer.paid:
-                    messages.error(request, "You have successfully paid")
+                    messages.success(request, "You have successfully paid")
                     request.session['cart'] = {}
                     return redirect(reverse('products'))
                 else:
@@ -80,3 +81,63 @@ def checkout(request):
         except:
             order_form = OrderForm()
     return render(request, 'checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE_KEY})
+    
+    
+@login_required()
+def commission_checkout(request, id):
+    
+    quote = Quote.objects.get(pk=id)
+    if request.method == "POST":
+        order_form = OrderForm(request.POST)
+        payment_form = MakePaymentForm(request.POST)
+        
+        if order_form.is_valid() and payment_form.is_valid():
+            total = quote.price_total
+            
+            try:
+                customer = stripe.Charge.create(
+                    amount = int(total*100),
+                    currency = "EUR",
+                    description = request.user.email,
+                    card = payment_form.cleaned_data['stripe_id'],
+                    )
+            except stripe.error.CardError:
+                messages.error(request, "Your card was declined")
+                
+            if customer.paid:
+                messages.success(request, "You have successfully paid")
+                quote.accepted = True
+                quote.save()
+                return redirect(reverse('products'))
+            else:
+                messages.error(request, "Unable to take payment")
+        else:
+            print(payment_form.errors)
+            messages.error(request, "We were unable to take payment with that card")
+    
+    else:
+        
+        payment_form = MakePaymentForm()
+
+        current_user = request.user.id
+        
+        try:
+            billing_info = UserBillingInfo.objects.get(customer_id=current_user)
+            if billing_info.remember_me:
+                order_form = OrderForm(initial={'full_name': billing_info.full_name, 
+                                                'phone_number': billing_info.phone_number,
+                                                'country': billing_info.country,
+                                                'postcode': billing_info.postcode,
+                                                'town_or_city': billing_info.town_or_city,
+                                                'street_address1': billing_info.street_address1,
+                                                'street_address2': billing_info.street_address2,
+                                                'county': billing_info.county,
+                                                'remember_me': billing_info.remember_me
+                                                })
+            else:
+                order_form = OrderForm()
+        except:
+            order_form = OrderForm()
+    
+    return render(request, 'comm_checkout.html', {'quote': quote, 'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE_KEY})
+    

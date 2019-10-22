@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.utils import timezone
 from .forms import OrderForm
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 # Create your views here.
 
+@login_required()
 def create_order(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -34,7 +36,16 @@ def create_order(request):
     return render(request, 'order.html', {'order_form': order_form})
         
 
+@login_required()
 def get_orders(request):
     orders = CommissionOrder.objects.all()
     
     return render(request, 'orders.html', {'orders': orders})
+
+@login_required()    
+def reject_quote(request, id):
+    quote = Quote.objects.get(pk=id)
+    quote.rejected = True
+    quote.save()
+    
+    return redirect(reverse('profile'))
