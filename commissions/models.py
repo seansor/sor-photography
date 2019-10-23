@@ -18,9 +18,18 @@ class Quote(models.Model):
     order = models.OneToOneField(CommissionOrder, null=True, blank=True, on_delete=models.CASCADE)
     price_works = models.DecimalField(max_digits=6, decimal_places=2)
     price_travel = models.DecimalField(max_digits=6, decimal_places=2)
-    price_total = models.DecimalField(max_digits=6, decimal_places=2)
+    price_total = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
     accepted = models.BooleanField(default=False)
     rejected = models.BooleanField(default=False)
+    
+    def sum_price(self):
+        self.price = self.price_works + self.price_travel
+        return self.price
+        
+    def save(self, *args, **kwargs):
+        if self.price_total != self.price_works + self.price_travel:
+            self.price_total = self.sum_price()
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return ("Id:{}, Value: €{}".format(self.id, self.price_total))

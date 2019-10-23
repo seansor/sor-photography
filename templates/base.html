@@ -51,13 +51,21 @@
         </div>
     </nav>
     {% if messages %}
-    <div class="alert alert-success">
-        <div class="messages">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-    </div>
+        {% for message in messages %}
+            {% if message.success %}
+            <div class="alert alert-success">
+                <div class="messages">
+                    {{ message }}
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                <div class="messages">
+                    {{ message }}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
     <div class="container">
         <h1>{% block page_heading %}{% endblock %}</h1>

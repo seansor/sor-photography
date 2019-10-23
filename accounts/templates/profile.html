@@ -41,7 +41,7 @@
 
 <div class="accordion" id="accordionExample">
     {% for quote_number, quote in quotes_zip %}
-    {% if quote.accepted == False and quote.rejected == False %}
+    {% if quote.rejected == False %}
     <div class="card">
         <div class="card-header d-flex" id="heading{{quote_number}}">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{quote_number}}" aria-expanded="true" aria-controls="collapse{{quote_number}}">
@@ -61,10 +61,14 @@
                         </span>
                     </span>
                 </button>
+            {% if quote.accepted == False %}
             <span class="accordion-btns">
                 <a href="{% url 'commission_checkout' quote.id %}" class="btn btn-success">Accept</a>
                 <a href="{% url 'reject_quote' quote.id %}" class="btn btn-danger">Reject</a>
             </span>
+            {% else %}
+            <p><i class="fa fa-check-circle-o" aria-hidden="true">Accepted: In Progress</i></p>
+            {% endif %}
         </div>
         <div id="collapse{{quote_number}}" class="collapse" aria-labelledby="heading{{quote_number}}" data-parent="#accordionExample">
             <div class="row card-body">

@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
+from products.models import Product, ProductVariant
 
 import os
 import logging
@@ -19,11 +21,17 @@ def add_to_cart(request, id):
     """
     Allows users to add items to cart
     """
-    quantity = int(request.POST.get('quantity'))
-    product_variant_id = request.POST.get('size-select')
+    try:
+        quantity = int(request.POST.get('quantity'))
+        product_variant_id = request.POST.get('size-select')
     
-    logger.debug(product_variant_id)
-    
+    except:
+        messages.error(request, "Please select a size and quantity")
+        product = Product.objects.get(id=id)
+        product_variants = ProductVariant.objects.filter(product_id=id)
+        
+        return render(request, 'product.html', {'product': product, 'product_variants': product_variants})
+        
     cart = request.session.get('cart', {})
     if product_variant_id in cart:
         cart[product_variant_id] = int(cart[product_variant_id]) +  quantity
@@ -32,6 +40,7 @@ def add_to_cart(request, id):
     
     request.session['cart'] = cart
     return redirect(reverse('index'))
+        
  
     
 def edit_cart(request, id):
