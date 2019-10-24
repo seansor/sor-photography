@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %}
+
+{% block page_title %}Quote{% endblock %}
+
+{% block page_heading %}Provide Quote{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8">
+        <form role="form" id="quote-form" action="{% url 'create_quote' commission_order.id %}" method="POST">
+            {% csrf_token %} 
+            {{ quote_form | as_bootstrap }}
+            <p id="quote-total"></p>
+            <button class="btn btn-secondary" type="submit">Send Quote</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

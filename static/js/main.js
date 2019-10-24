@@ -21,4 +21,16 @@ $(document).ready(function() {
         $(this).find(".fa-caret-up").toggle();
     });
     
+    $("#id_price_works, #id_price_travel").on("keyup keydown change", function(){
+        let price_works = parseFloat($("#id_price_works").val());
+        let price_travel = parseFloat($("#id_price_travel").val());
+        if(isNaN(price_works)){
+            price_works=0;
+        }
+        if(isNaN(price_travel)){
+            price_travel=0;
+        }
+        $("#quote-total").text("Total: €" + (price_works+price_travel).toFixed(2));
+    });
+    
 });

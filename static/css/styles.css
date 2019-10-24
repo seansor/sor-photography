@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:500,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Yellowtail&display=swap');
 
 body {
     font-family: 'Arial', sans-serif;
+    min-height: 100%
 }
 
 footer {
@@ -11,6 +12,20 @@ footer {
     padding-bottom: 20px;
     border-top: 1px solid #ededed;
     color: #A9A9A9;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#page-content-wrap {
+  padding-bottom: 118px;
 }
 
 hr {
@@ -29,8 +44,32 @@ a:hover, .btn-link:hover {
     background-color: #fff;
 }
 
+.navbar-brand {
+    align-items: center;
+    display: inline-flex;
+    padding-left: 0;
+}
+
 #navbar-brand--img {
-    height: 40px;
+    display: inline-flex;
+    margin-right: 5px;
+    width:60px;
+    height: 42px;
+    background: url('../img/camera-logo.jpg') no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px #00000078 inset;
+}
+
+.btn-standard {
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.section-heading {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .accountform {
@@ -38,7 +77,8 @@ a:hover, .btn-link:hover {
 }
 
 .collection-heading {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Yellowtail', cursive;
+    padding-bottom: 20px;
 }
 
 .badge {
@@ -54,9 +94,14 @@ a:hover, .btn-link:hover {
     background-color: #c67605;
 }
 
+.carousel {
+   
+}
+
 #carouselExampleIndicators {
     width: 70%;
     margin: 0 auto;
+    margin-bottom: 45px;
 }
 
 
@@ -71,10 +116,6 @@ a:hover, .btn-link:hover {
 
 .product-price {
     display: none;
-}
-
-caption p {
-    word-wrap: break-word;
 }
 
 .row.row-flex {
@@ -97,13 +138,23 @@ caption p {
     min-height: 40px;
 }
 
+.collection-thumbnails {
+    text-align: center;
+}
+
 .collection-thumb-img {
     height: 100px;
     width: 150px;
+    box-shadow: 0 0 5px 5px #aaa;
 }
 
 .collection-thumb-img--hidden {
     display: none;
+}
+
+.collection-name {
+    font-family: 'Yellowtail', cursive;
+    margin-top: 15px;
 }
 
 .carousel-item {
@@ -143,4 +194,17 @@ caption p {
 
 .btn-link {
     width: 70%;
+}
+
+.purchase-link .fa-cart-plus:hover {
+    color: #f89406;
+}
+
+.fancybox-caption .purchase-link:hover {
+    text-decoration: none;
+    color: #f89406;
+}
+
+.purchase-link:hover {
+    color: #f89406;
 }

@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from .models import Collection, Product, ProductVariant
 from checkout.models import OrderInfo
+from commissions.models import Quote
 import os
 import logging
 
@@ -12,8 +13,6 @@ logger = logging.getLogger(__name__)
 
 def all_products(request):
     
-    # OrderInfo.objects.all().delete()
-    # request.session.flush()
     if not request.user.is_authenticated:
         request.session.set_expiry(0)
     

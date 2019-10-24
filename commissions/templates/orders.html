@@ -35,7 +35,7 @@
     <td><i class="fa fa-clock-o" aria-hidden="true"></i>Awaiting Response</td>
     {% endif %}
     {% else %}
-    <td></td>
+    <td><a href="{% url 'create_quote' order.id %}" class="btn btn-secondary btn-standard">Provide Quote</a></td>
     <td></td>
     <td></td>
     {% endif %}

@@ -11,48 +11,49 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/"><img id="navbar-brand--img" src="{% static 'img/camera-logo.jpg'%}"/>SOR Photography</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav ml-auto">
-                {% if user.is_superuser %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user"></i>Admin Panel</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'get_orders' %}"><i class="fa fa-user"></i>Orders</a></li>
-                {% endif %}
-                {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'create_order' %}"><i class="fa fa-user"></i>Request Commission</a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user"></i> Profile
-                    {% if count > 0 %}
-                        <label class="badge badge-warning"> {{ count }}</label>
-                    {% endif %}
-                </a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Log Out</a></li>
-                {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log In</a></li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'view_cart' %}">
+    <div class="container-fluid" id="page-container">
+        <div id="page-content-wrap">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="/">
+                    <div id="navbar-brand--img"></div>SOR Photography
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        {% if user.is_superuser %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Admin Panel</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'get_orders' %}"><i class="fa fa-list" aria-hidden="true"></i> Commission Orders</a></li>
+                        {% endif %} {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'create_order' %}"><i class="fa fa-camera" aria-hidden="true"></i> Request Commission</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user"></i> Profile
+                                {% if count > 0 %}
+                                    <label class="badge badge-warning"> {{ count }}</label>
+                                {% endif %}
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log In</a></li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view_cart' %}">
                         <i class="fa fa-shipping-cart"></i>Cart
                         {% if product_count > 0 %}
                         <label class="badge badge-warning"> {{ product_count }}</label>
                         {% endif %}
                     </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.success %}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            {% if messages %} {% for message in messages %} {% if message.success %}
             <div class="alert alert-success">
                 <div class="messages">
                     {{ message }}
@@ -64,26 +65,26 @@
                     {{ message }}
                 </div>
             </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <div class="container">
-        <h1>{% block page_heading %}{% endblock %}</h1>
-        {% block content %}
-        <!--<div class="display">-->
-        <!--<form action="/" method="GET">-->
-        <!--url 'search' -->
-        <!--        <input type="text" name="q" />-->
-        <!--        <input type="submit" value="Search" />-->
-        <!--    </form>-->
-        <!--</div>-->
-        {% endblock %}
-    </div>
-    <footer>
-        <div class="container">
-            <p>Made by Code Institute bootcampers</p>
+            {% endif %} {% endfor %} {% endif %}
+            <div class="container">
+                <h1 class='section-heading'>{% block page_heading %}{% endblock %}</h1>
+                {% block content %}
+                <!--<div class="display">-->
+                <!--<form action="/" method="GET">-->
+                <!--url 'search' -->
+                <!--        <input type="text" name="q" />-->
+                <!--        <input type="submit" value="Search" />-->
+                <!--    </form>-->
+                <!--</div>-->
+                {% endblock %}
+            </div>
+            <footer class="small text-center">
+                <div class="container">
+                    Copyright &copy; SOR Photography 2019
+                </div>
+            </footer>
         </div>
-    </footer>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>

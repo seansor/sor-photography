@@ -19,6 +19,7 @@ class Quote(models.Model):
     price_works = models.DecimalField(max_digits=6, decimal_places=2)
     price_travel = models.DecimalField(max_digits=6, decimal_places=2)
     price_total = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
+    date = models.DateField()
     accepted = models.BooleanField(default=False)
     rejected = models.BooleanField(default=False)
     
