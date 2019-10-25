@@ -52,7 +52,7 @@
 <div class="row other-collections">
 {% for first_product_id, collection_id, collection_image, collection_image_name, collection_name in collection_details %}
     {% if collection_id != current_series.id %}
-    <div class="col-6 col-md-3 col-xl-2 collection-thumbnails">
+    <div class="col-6 col-md-3 collection-thumbnails">
         <a data-fancybox="{{ collection_id }}" href="{{ MEDIA_URL }}{{ collection_image }}" data-caption="{{ collection_image_name }} <a class='purchase-link' href={% url 'product' first_product_id %}>Purchase <i class='fa fa-cart-plus' aria-hidden='true'></i></a>"><img class="collection-thumb-img" src="{{ MEDIA_URL }}{{ collection_image }}"></a>
         {% for product in products %}
         {% if product.collection_id == collection_id and product.image != collection_image %} 
@@ -68,7 +68,7 @@
 <div class="row other-collections">
 {% for first_product_id, collection_id, collection_image, collection_image_name, collection_name in collection_details %}
     {% if collection_id != current_series.id %}
-    <div class="col-6 col-md-3 col-xl-2 collection-thumbnails">
+    <div class="col-6 col-md-3 collection-thumbnails">
         <a data-fancybox="{{ collection_id }}" href="{{ MEDIA_URL }}{{ collection_image }}" data-caption="{{ collection_image_name }} <a class='purchase-link' href={% url 'product' first_product_id %}>Purchase<i class='fa fa-cart-plus' aria-hidden='true'></i></a>"><img class="collection-thumb-img" src="{{ MEDIA_URL }}{{ collection_image }}"></a>
         {% for product in products %}
         {% if product.collection_id == collection_id and product.image != collection_image %} 

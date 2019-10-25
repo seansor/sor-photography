@@ -3,28 +3,31 @@
 <div class="row row-flex">
     <div class="col-xs-10 offset-xs-1 col-sm-8 offset-sm-2 display panel panel-default">
         <div class="panel-body">
-            <div class="product" style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')"></div>
-            <h3>{{ product.name }}</h3>
-            <h4>{{ product.location }}</h4>
-            <p class="product-description">{{ product.description }}</p>
-            <form method="POST" action="{% url 'add_to_cart' product.id %}">
-                {% csrf_token %}
-                <div class="input-group">
-                    <select name="size-select" id="size-select">
+            <div class="product-img" style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')"></div>
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <h4>{{ product.location }}</h4>
+                <p class="product-description">{{ product.description }}</p>
+                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <select name="size-select" id="size-select">
                         <option value="" disabled selected>Available Sizes</option>
                         {% for variant in product_variants %}
                         <option value="{{ variant.id }}">{{ variant.size }}</option>
                         {% endfor %}
                     </select>
-                    <input type="number" name="quantity" min="1" max="999" class="form-control" placeholder="Quantity" />
-                    <span class="input-group-btn">
+                        <input type="number" name="quantity" min="1" max="999" class="form-control" placeholder="Quantity" />
+                        <span class="input-group-btn">
                         <button class="btn btn-success" type="submit">Add</button>
                     </span>
-                </div>
-            </form>
-            {% for variant in product_variants %}
+                    </div>
+                </form>
+                {% for variant in product_variants %}
                 <p class='product-price' id="{{ variant.id }}">Price (1 copy): €{{ variant.price }}</p>
-            {% endfor %}
+                {% endfor %}
+            </div>
+
         </div>
     </div>
 </div>

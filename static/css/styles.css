@@ -18,25 +18,27 @@ footer {
 }
 
 #page-container {
-  position: relative;
-  min-height: 100vh;
-  padding-right: 0;
-  padding-left: 0;
+    position: relative;
+    min-height: 100vh;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 #page-content-wrap {
-  padding-bottom: 118px;
+    padding-bottom: 118px;
 }
 
 hr {
     border-color: grey;
 }
 
-h1, h2 {
+h1,
+h2 {
     text-align: center;
 }
 
-a:hover, .btn-link:hover {
+a:hover,
+.btn-link:hover {
     text-decoration: none;
 }
 
@@ -53,7 +55,7 @@ a:hover, .btn-link:hover {
 #navbar-brand--img {
     display: inline-flex;
     margin-right: 5px;
-    width:60px;
+    width: 60px;
     height: 42px;
     background: url('../img/camera-logo.jpg') no-repeat;
     background-size: cover;
@@ -94,28 +96,32 @@ a:hover, .btn-link:hover {
     background-color: #c67605;
 }
 
-.carousel {
-   
-}
+.carousel {}
 
 #carouselExampleIndicators {
-    width: 70%;
     margin: 0 auto;
     margin-bottom: 45px;
 }
 
-
-.product {
+.product-img {
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    width: 400px;
+    width: 90%;
     height: 250px;
     margin: 10px auto;
 }
 
+.product-info {
+    padding: 10px;
+}
+
 .product-price {
     display: none;
+}
+
+#size-select {
+    width: 50%;
 }
 
 .row.row-flex {
@@ -124,9 +130,20 @@ a:hover, .btn-link:hover {
     margin-top: 30px;
 }
 
+.cart-img {
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 150px;
+}
+
+.panel {
+    border: solid 1px grey;
+    margin-bottom: 35px;
+}
+
 .panel-default {
-    border-color: transparent;
-    padding: 0 10px;
+    padding: 10px;
 }
 
 .panel-body {
@@ -136,6 +153,13 @@ a:hover, .btn-link:hover {
 
 .product-description {
     min-height: 40px;
+}
+
+.input-group-addon {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
 }
 
 .collection-thumbnails {
@@ -167,6 +191,11 @@ a:hover, .btn-link:hover {
 
 .purchase-link {
     display: block;
+}
+
+#cart-total {
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .accordion-btns {
@@ -207,4 +236,10 @@ a:hover, .btn-link:hover {
 
 .purchase-link:hover {
     color: #f89406;
+}
+
+@media(min-width: 376px) {
+    #carouselExampleIndicators {
+        width: 70%;
+    }
 }
