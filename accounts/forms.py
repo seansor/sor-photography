@@ -43,9 +43,3 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError("Passwords must match")
             
         return password2
-        
-
-class BillingForm(forms.ModelForm):
-    class Meta:
-        model = UserBillingInfo
-        exclude = ['customer', 'remember_me']

@@ -16,7 +16,6 @@ logger = logging.getLogger(__name__)
 
 @login_required()
 def create_order(request):
-    # if this is a POST request we need to process the form data
     if request.method == 'POST':
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
@@ -28,9 +27,7 @@ def create_order(request):
             
             messages.success(request, "Your request has been sent successfully.")
             return redirect(reverse('products'))
-            # redirect to a new URL:
     else:
-        #CommissionOrder.objects.all().delete()
         order_form = OrderForm()
         
     return render(request, 'order.html', {'order_form': order_form})

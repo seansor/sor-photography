@@ -2,11 +2,10 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import MakePaymentForm, OrderForm
-from .models import OrderLineItem
+from .models import OrderInfo, OrderLineItem
 from django.conf import settings
 from django.utils import timezone
 from products.models import ProductVariant
-from accounts.models import UserBillingInfo
 from commissions.models import Quote
 import stripe
 
@@ -33,13 +32,9 @@ def checkout(request):
             order_info.date = timezone.now()
             order_info.save()
             
-            
             cart = request.session.get('cart', {})
-            logger.info(cart)
             total = 0
             for id, quantity in cart.items():
-                logger.info(id, )
-                logger.info(quantity)
                 product_variant = get_object_or_404(ProductVariant, pk=id)
                 total += quantity * product_variant.price
                 order_line_item = OrderLineItem(
@@ -76,7 +71,7 @@ def checkout(request):
         current_user = request.user.id
         
         try:
-            billing_info = UserBillingInfo.objects.get(customer_id=current_user)
+            billing_info = OrderInfo.objects.filter(customer_id=current_user).latest('id')
             if billing_info.remember_me:
                 order_form = OrderForm(initial={'full_name': billing_info.full_name, 
                                                 'phone_number': billing_info.phone_number,
@@ -134,7 +129,7 @@ def commission_checkout(request, id):
         current_user = request.user.id
         
         try:
-            billing_info = UserBillingInfo.objects.get(customer_id=current_user)
+            billing_info = OrderInfo.objects.filter(customer_id=current_user).latest('id')
             if billing_info.remember_me:
                 order_form = OrderForm(initial={'full_name': billing_info.full_name, 
                                                 'phone_number': billing_info.phone_number,

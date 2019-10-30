@@ -8,28 +8,6 @@
         <p>Email: {{ user.email }}</p>
         <p>Password: **********<a href="{% url 'password_reset' %}">Change Password</a></p>
     </div>
-    <div class="col-md-6">
-        <h2>Billing Information</h2>
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="billing-info--header">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#billing-form" aria-expanded="true" aria-controls="collapse{{quote_number}}">
-                            Update Billing Info
-                        </button>
-                    </h2>
-                </div>
-                <div id="billing-form" class="collapse" aria-labelledby="heading{{quote_number}}" data-parent="#accordionExample">
-                    <div class="card-body">
-                        <form action="{% url 'profile' %}" method="POST">
-                            {% csrf_token %} {{ billing_form | as_bootstrap }}
-                            <input class="btn btn-light" type="submit" value="Update" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
