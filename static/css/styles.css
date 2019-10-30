@@ -140,6 +140,7 @@ a:hover,
 .panel {
     border: solid 1px grey;
     margin-bottom: 35px;
+    text-align: center;
 }
 
 .panel-default {
@@ -148,7 +149,6 @@ a:hover,
 
 .panel-body {
     height: 100%;
-    border: 1px solid #ddd;
 }
 
 .product-description {

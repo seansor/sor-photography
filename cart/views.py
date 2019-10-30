@@ -39,6 +39,10 @@ def add_to_cart(request, id):
         cart[product_variant_id] = cart.get(product_variant_id, quantity)
     
     request.session['cart'] = cart
+    logger.info(cart)
+    
+    messages.success(request, "Product successfully added to cart.")
+    
     return redirect(reverse('index'))
         
  

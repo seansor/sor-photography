@@ -10,6 +10,13 @@ from accounts.models import UserBillingInfo
 from commissions.models import Quote
 import stripe
 
+import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -28,37 +35,42 @@ def checkout(request):
             
             
             cart = request.session.get('cart', {})
+            logger.info(cart)
             total = 0
-            for product_variant_id, quantity in cart.items():
-                product_variant = get_object_or_404(ProductVariant, pk=product_variant_id)
+            for id, quantity in cart.items():
+                logger.info(id, )
+                logger.info(quantity)
+                product_variant = get_object_or_404(ProductVariant, pk=id)
                 total += quantity * product_variant.price
                 order_line_item = OrderLineItem(
                     order_info = order_info,
                     product_variant = product_variant,
-                    quantity = quantity
+                    quantity = quantity,
+                    line_total = product_variant.price * quantity
                     )
                 order_line_item.save()
                 
-                try:
-                    customer = stripe.Charge.create(
-                        amount = int(total*100),
-                        currency = "EUR",
-                        description = request.user.email,
-                        card = payment_form.cleaned_data['stripe_id'],
-                        )
-                except stripe.error.CardError:
-                    messages.error(request, "Your card was declined")
-                    
-                if customer.paid:
-                    messages.success(request, "You have successfully paid")
-                    request.session['cart'] = {}
-                    return redirect(reverse('products'))
-                else:
+            try:
+                customer = stripe.Charge.create(
+                    amount = int(total*100),
+                    currency = "EUR",
+                    description = request.user.email,
+                    card = payment_form.cleaned_data['stripe_id'],
+                    )
+            except stripe.error.CardError:
+                messages.error(request, "Your card was declined")
+                
+            if customer.paid:
+                messages.success(request, "You have successfully paid")
+                request.session['cart'] = {}
+                return redirect(reverse('products'))
+            else:
                     messages.error(request, "Unable to take payment")
         else:
             print(payment_form.errors)
             messages.error(request, "We were unable to take payment with that card")
     else:
+        cart = request.session.get('cart', {})
         payment_form = MakePaymentForm()
         
         current_user = request.user.id

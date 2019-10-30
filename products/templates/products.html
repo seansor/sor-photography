@@ -64,21 +64,5 @@
     {% endif %}
 {% endfor %}
 </div>
-<h1 class="section-heading">Commissions Showcase</h1>
-<div class="row other-collections">
-{% for first_product_id, collection_id, collection_image, collection_image_name, collection_name in collection_details %}
-    {% if collection_id != current_series.id %}
-    <div class="col-6 col-md-3 collection-thumbnails">
-        <a data-fancybox="{{ collection_id }}" href="{{ MEDIA_URL }}{{ collection_image }}" data-caption="{{ collection_image_name }} <a class='purchase-link' href={% url 'product' first_product_id %}>Purchase<i class='fa fa-cart-plus' aria-hidden='true'></i></a>"><img class="collection-thumb-img" src="{{ MEDIA_URL }}{{ collection_image }}"></a>
-        {% for product in products %}
-        {% if product.collection_id == collection_id and product.image != collection_image %} 
-        <a data-fancybox="{{ collection_id }}" href="{{ MEDIA_URL }}{{ product.image }}" data-caption="{{ product.name }}, {{ product.location }}, <a class='purchase-link' href={% url 'product' product.id %}>Purchase<i class='fa fa-cart-plus' aria-hidden='true'></i></a>"><img class="collection-thumb-img--hidden" src="{{ MEDIA_URL }}{{ product.image }}"></a>
-        {% endif %}
-    {% endfor %}
-    <h5 class="collection-name">{{ collection_name }}</h5>
-    </div>
-    {% endif %}
-{% endfor %}
-</div>
 
 {% endblock %}

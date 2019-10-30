@@ -53,30 +53,18 @@
                     </ul>
                 </div>
             </nav>
-            {% if messages %} {% for message in messages %} {% if message.success %}
-            <div class="alert alert-success">
-                <div class="messages">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %} 
+                <div {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %}>
                     {{ message }}
                 </div>
+                 {% endfor %}
             </div>
-            {% else %}
-            <div class="alert alert-warning">
-                <div class="messages">
-                    {{ message }}
-                </div>
-            </div>
-            {% endif %} {% endfor %} {% endif %}
+            {% endif %}
             <div class="container">
                 <h1 class='section-heading'>{% block page_heading %}{% endblock %}</h1>
-                {% block content %}
-                <!--<div class="display">-->
-                <!--<form action="/" method="GET">-->
-                <!--url 'search' -->
-                <!--        <input type="text" name="q" />-->
-                <!--        <input type="submit" value="Search" />-->
-                <!--    </form>-->
-                <!--</div>-->
-                {% endblock %}
+                {% block content %} {% endblock %}
             </div>
             <footer class="small text-center">
                 <div class="container">
