@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class CommissionOrder(models.Model):
     subject = models.CharField(max_length=100, default="")
-    description = models.TextField()
+    description = models.TextField(max_length=1000)
     size = models.CharField(max_length=100, default="")
     location = models.CharField(max_length=254, default="")
     customer = models.ForeignKey(User, on_delete=models.CASCADE)

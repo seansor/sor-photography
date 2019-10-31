@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% load bootstrap_tags %} {% block page_heading %}{{ user.username }}'s Profile{% endblock %} {% block content %}
 
 
-<div class="row">
+<div class="row user-details">
     <div class="col-md-6">
-        <h2>User Details</h2>
+        <h2 class="section-heading">User Details</h2>
         <p>Username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
         <p>Password: **********<a href="{% url 'password_reset' %}">Change Password</a></p>
@@ -11,7 +11,7 @@
 </div>
 
 
-<h2>Quotes For Requested Commissions</h2>
+<h2 class="section-heading">Quotes For Requested Commissions</h2>
 
 <div class="accordion" id="accordionExample">
     {% for quote_number, quote in quotes_zip %} {% if quote.rejected == False %}
@@ -38,7 +38,7 @@
                 <a href="{% url 'commission_checkout' quote.id %}" class="btn btn-success">Accept</a>
                 <a href="{% url 'reject_quote' quote.id %}" class="btn btn-danger">Reject</a>
             </span> {% else %}
-            <p><i class="fa fa-check-circle-o" aria-hidden="true">Accepted: In Progress</i></p>
+            <p><i class="fa fa-check-circle-o" aria-hidden="true"></i> Accepted: In Progress</p>
             {% endif %}
         </div>
         <div id="collapse{{quote_number}}" class="collapse" aria-labelledby="heading{{quote_number}}" data-parent="#accordionExample">

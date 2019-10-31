@@ -81,7 +81,10 @@ def user_profile(request):
     
     user = request.user
     quotes = Quote.objects.filter(order__customer=user.id)
-    quote_numbers = ['One', 'Two', 'Three', 'Four', 'Five']
+    number_of_quotes = quotes.count()
+    quote_numbers = []
+    for i in range(1, number_of_quotes+1):
+        quote_numbers.append(str(i))
     quotes_zip = zip(quote_numbers, quotes)
 
     

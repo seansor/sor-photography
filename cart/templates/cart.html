@@ -13,7 +13,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Qty: {{ item.quantity }}</div>
                     </div>
-                    <input type="number" name="quantity" min="0" max="999" class="form-control" placeholder="Edit Qty" />
+                    <input class="cart-input" type="number" name="quantity" min="0" max="999" class="form-control" placeholder="Edit Qty" />
                     <button type="submit" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 </div>
             </form>
@@ -22,5 +22,14 @@
     {% endfor %}
 </div>
 
-<p id="cart-total">Total: €{{ total }}</p>
-<a href="{% url 'checkout' %}" class="btn btn-success" role="button"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Checkout</a> {% endblock %}
+<div>
+    {% if total != 0 %}
+    <p class="cart-items">Total: €{{ total }}</p>
+    <a href="{% url 'checkout' %}" class="btn btn-success" role="button"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Checkout</a> {% else %}
+    <p class="cart-items"><i class="fa fa-meh-o" aria-hidden="true"></i> No items in cart....</p>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

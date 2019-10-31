@@ -69,6 +69,10 @@ a:hover,
     align-items: center;
 }
 
+.page-heading {
+    margin-top: 25px;
+}
+
 .section-heading {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -78,9 +82,10 @@ a:hover,
     padding-top: 20px;
 }
 
-.collection-heading {
+.collection-name {
     font-family: 'Yellowtail', cursive;
     padding-bottom: 20px;
+    margin-top: 15px;
 }
 
 .badge {
@@ -153,6 +158,7 @@ a:hover,
 
 .product-description {
     min-height: 40px;
+    text-align: justify;
 }
 
 .input-group-addon {
@@ -176,11 +182,6 @@ a:hover,
     display: none;
 }
 
-.collection-name {
-    font-family: 'Yellowtail', cursive;
-    margin-top: 15px;
-}
-
 .carousel-item {
     max-height: 400px;
 }
@@ -193,7 +194,7 @@ a:hover,
     display: block;
 }
 
-#cart-total {
+.cart-items {
     font-size: 1.25rem;
     font-weight: 700;
 }
@@ -223,6 +224,7 @@ a:hover,
 
 .btn-link {
     width: 70%;
+    padding: 0;
 }
 
 .purchase-link .fa-cart-plus:hover {
@@ -236,6 +238,45 @@ a:hover,
 
 .purchase-link:hover {
     color: #f89406;
+}
+
+.user-details {
+    text-align: center;
+    justify-content: center;
+}
+
+.scrolling-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.scrolling-wrapper .table {
+    flex: 0 0 auto;
+}
+
+.form-group {
+    margin: 1rem auto;
+}
+
+.form-row {
+    display: flex;
+}
+
+.form-row .input-group {
+    justify-content: center;
+}
+
+.form-row .input-group input {
+    width: 100px;
+}
+
+#payment-form legend {
+    text-align: center;
+}
+
+.submit_payment {
+    text-align: center;
 }
 
 @media(min-width: 376px) {
