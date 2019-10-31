@@ -1,17 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load bootstrap_tags %} {% block page_title %}Registration Page{% endblock %} {% block page_heading %}User Registration{% endblock %} {% block content %}
 
-{% load bootstrap_tags %}
 
-{% block page_title %}Registration Page{% endblock %}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+        <p class="center-text">If you already have an account, you can <a href="{% url 'login' %}">sign in</a></p>
+        <form method="POST">
+            {% csrf_token %} {{ registration_form | as_bootstrap }}
+            <button class="btn btn-secondary" type="submit">Register</button>
+        </form>
+    </div>
+</div>
 
-{% block page_heading %}User Registration{% endblock %}
 
-{% block content %}
-<p>If you already have an account, you can <a href="{% url 'login' %}">sign in</a></p>
-
-<form method="POST">
-    {% csrf_token %} 
-    {{ registration_form | as_bootstrap }}
-    <button class="btn btn-secondary" type="submit">Register</button>
-</form>
 {% endblock %}

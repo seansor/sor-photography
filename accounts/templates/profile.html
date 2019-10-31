@@ -38,7 +38,7 @@
                 <a href="{% url 'commission_checkout' quote.id %}" class="btn btn-success">Accept</a>
                 <a href="{% url 'reject_quote' quote.id %}" class="btn btn-danger">Reject</a>
             </span> {% else %}
-            <p><i class="fa fa-check-circle-o" aria-hidden="true"></i> Accepted: In Progress</p>
+            <p class="align-center"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Accepted: In Progress</p>
             {% endif %}
         </div>
         <div id="collapse{{quote_number}}" class="collapse" aria-labelledby="heading{{quote_number}}" data-parent="#accordionExample">

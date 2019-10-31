@@ -42,6 +42,10 @@ a:hover,
     text-decoration: none;
 }
 
+.btn {
+    padding: 10px;
+}
+
 .icon-bar {
     background-color: #fff;
 }
@@ -61,12 +65,6 @@ a:hover,
     background-size: cover;
     border-radius: 10px;
     box-shadow: 0 0 10px 5px #00000078 inset;
-}
-
-.btn-standard {
-    height: 35px;
-    display: inline-flex;
-    align-items: center;
 }
 
 .page-heading {
@@ -100,8 +98,6 @@ a:hover,
 .badge-warning[href] {
     background-color: #c67605;
 }
-
-.carousel {}
 
 #carouselExampleIndicators {
     margin: 0 auto;
@@ -215,6 +211,7 @@ a:hover,
 }
 
 .card-header .fa {
+    margin-right: 5px;
     font-size: 1.5rem;
 }
 
@@ -245,16 +242,6 @@ a:hover,
     justify-content: center;
 }
 
-.scrolling-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-}
-
-.scrolling-wrapper .table {
-    flex: 0 0 auto;
-}
-
 .form-group {
     margin: 1rem auto;
 }
@@ -271,16 +258,27 @@ a:hover,
     width: 100px;
 }
 
-#payment-form legend {
+.center-text {
     text-align: center;
 }
 
-.submit_payment {
-    text-align: center;
+.align-center {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
 }
 
 @media(min-width: 376px) {
     #carouselExampleIndicators {
         width: 70%;
+    }
+}
+
+@media(max-width: 415px) {
+
+    .scrolling-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
     }
 }

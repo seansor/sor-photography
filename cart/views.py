@@ -26,7 +26,7 @@ def add_to_cart(request, id):
         product_variant_id = request.POST.get('size-select')
     
     except:
-        messages.error(request, "Please select a size and quantity")
+        messages.warning(request, "Please select a size and quantity")
         product = Product.objects.get(id=id)
         product_variants = ProductVariant.objects.filter(product_id=id)
         

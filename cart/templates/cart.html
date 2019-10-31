@@ -22,7 +22,7 @@
     {% endfor %}
 </div>
 
-<div>
+<div class="center-text">
     {% if total != 0 %}
     <p class="cart-items">Total: €{{ total }}</p>
     <a href="{% url 'checkout' %}" class="btn btn-success" role="button"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Checkout</a> {% else %}
