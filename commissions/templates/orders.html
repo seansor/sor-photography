@@ -1,4 +1,12 @@
-{% extends 'base.html' %} {% load bootstrap_tags %} {% block page_title %}Orders{% endblock %} {% block page_heading %}Orders{% endblock %} {% block content %}
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %}
+
+{% block page_title %}Orders{% endblock %}
+
+{% block page_heading %}Orders{% endblock %}
+
+{% block content %}
 
 <div class="scrolling-wrapper">
   <table class="table table-bordered table-striped table-dark">
@@ -19,13 +27,14 @@
         {% if order.quote %}
         <td>{{ order.quote.id}}</td>
         <td>€{{ order.quote.price_total}}</td>
-        {% if order.quote.accepted %}
-        <td><i class="fa fa-check-circle-o" aria-hidden="true"></i> Accepted</td>
-        {% elif order.quote.rejected %}
-        <td><i class="fa fa-times-circle-o" aria-hidden="true"></i> Rejected</td>
+          {% if order.quote.accepted %}
+          <td><i class="fa fa-check-circle-o" aria-hidden="true"></i> Accepted</td>
+          {% elif order.quote.rejected %}
+          <td><i class="fa fa-times-circle-o" aria-hidden="true"></i> Rejected</td>
+          {% else %}
+          <td><i class="fa fa-clock-o" aria-hidden="true"></i> Awaiting Response</td>
+          {% endif %} 
         {% else %}
-        <td><i class="fa fa-clock-o" aria-hidden="true"></i> Awaiting Response</td>
-        {% endif %} {% else %}
         <td><a href="{% url 'create_quote' order.id %}" class="btn btn-secondary btn-standard">Provide Quote</a></td>
         <td></td>
         <td></td>
@@ -35,6 +44,5 @@
     </tbody>
   </table>
 </div>
-
 
 {% endblock %}

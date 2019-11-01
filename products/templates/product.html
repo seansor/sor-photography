@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+
+{% block content %}
 
 <div class="row row-flex">
     <div class="col-xs-10 offset-xs-1 col-sm-8 offset-sm-2 display panel panel-default">
@@ -12,22 +14,21 @@
                     {% csrf_token %}
                     <div class="input-group">
                         <select name="size-select" id="size-select">
-                        <option value="" disabled selected>Available Sizes</option>
-                        {% for variant in product_variants %}
-                        <option value="{{ variant.id }}">{{ variant.size }}</option>
-                        {% endfor %}
-                    </select>
+                            <option value="" disabled selected>Available Sizes</option>
+                            {% for variant in product_variants %}
+                            <option value="{{ variant.id }}">{{ variant.size }}</option>
+                            {% endfor %}
+                        </select>
                         <input type="number" name="quantity" min="1" max="999" class="form-control" placeholder="Quantity" />
                         <span class="input-group-btn">
-                        <button class="btn btn-success" type="submit">Add</button>
-                    </span>
+                            <button class="btn btn-success" type="submit">Add</button>
+                        </span>
                     </div>
                 </form>
                 {% for variant in product_variants %}
                 <p class='product-price' id="{{ variant.id }}">Price (1 copy): €{{ variant.price }}</p>
                 {% endfor %}
             </div>
-
         </div>
     </div>
 </div>

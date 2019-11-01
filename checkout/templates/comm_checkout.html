@@ -1,29 +1,28 @@
 {% extends "base.html" %}
+
 {% load static from staticfiles %}
+
 {% load bootstrap_tags %}
 
 {% block content %}
 
 <form role="form" method="post" id="payment-form" action="{% url 'commission_checkout' quote.id %}">
+    {% csrf_token %}
     <legend class="center-text">Payment Details</legend>
-
-    <div id="credit-card-errors" style="display: none;">
+    <div class="credit-card-errors" style="display: none;">
         <div id="alert-message block-message error" id="stripe-error-message"></div>
     </div>
-
     <div class="form-group col-md-6">
         {{ order_form | as_bootstrap }}
     </div>
-
     <div class="form-group col-md-6">
         {{ payment_form | as_bootstrap }}
     </div>
-
-    {% csrf_token %}
     <div class="center-text form-group">
         <input class=" btn btn-primary" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
     </div>
 </form>
+
 {% endblock %}
 
 {% block head_js %}

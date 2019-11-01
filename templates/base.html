@@ -1,7 +1,7 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,28 +27,63 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav ml-auto">
                         {% if user.is_superuser %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Admin Panel</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'get_orders' %}"><i class="fa fa-list" aria-hidden="true"></i> Commission Orders</a></li>
-                        {% endif %} {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'create_order' %}"><i class="fa fa-camera" aria-hidden="true"></i> Request Commission</a></li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user"></i> Profile
+                            <a class="nav-link" href="{% url 'admin:index' %}">
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                Admin Panel
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'get_orders' %}">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                Commission Orders
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'create_order' %}">
+                                <i class="fa fa-camera" aria-hidden="true"></i>
+                                Request Commission
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">
+                                <i class="fa fa-user"></i>
+                                Profile
                                 {% if count > 0 %}
                                     <label class="badge badge-warning"> {{ count }}</label>
                                 {% endif %}
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">
+                                <i class="fa fa-sign-out"></i>
+                                Log Out
+                            </a>
+                        </li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fa fa-user-plus"></i> Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log In</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">
+                                <i class="fa fa-user-plus"></i>
+                                Register
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">
+                                <i class="fa fa-sign-in"></i>
+                                Log In
+                            </a>
+                        </li>
                         {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'view_cart' %}">
-                        <i class="fa fa-shipping-cart"></i>Cart
-                        {% if product_count > 0 %}
-                        <label class="badge badge-warning"> {{ product_count }}</label>
-                        {% endif %}
-                    </a>
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i> 
+                                Cart
+                                {% if product_count > 0 %}
+                                <label class="badge badge-warning"> {{ product_count }}</label>
+                                {% endif %}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -62,10 +97,13 @@
                  {% endfor %}
             </div>
             {% endif %}
+            
             <div class="container">
                 <h1 class='page-heading'>{% block page_heading %}{% endblock %}</h1>
-                {% block content %} {% endblock %}
+                {% block content %}
+                {% endblock %}
             </div>
+            
             <footer class="small text-center">
                 <div class="container">
                     Copyright &copy; SOR Photography 2019
