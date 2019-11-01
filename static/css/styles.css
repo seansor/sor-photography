@@ -212,6 +212,7 @@ a:hover,
 
 .card-header .fa {
     margin-right: 5px;
+    margin-left: 5px;
     font-size: 1.5rem;
 }
 
@@ -266,6 +267,11 @@ a:hover,
     display: flex;
     align-items: center;
     margin-bottom: 0;
+}
+
+#order-history-button {
+    display: block;
+    width: 100%;
 }
 
 @media(min-width: 376px) {

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserLoginForm, UserRegistrationForm
+from checkout.models import OrderLineItem
 from commissions.models import Quote
 
 
@@ -69,5 +70,6 @@ def user_profile(request):
 
     user = request.user
     quotes = Quote.objects.filter(order__customer=user.id)
+    order_history = OrderLineItem.objects.filter(order_info__customer=user.id).order_by('-order_info__date')
 
-    return render(request, 'profile.html', {'user': user, 'quotes': quotes})
+    return render(request, 'profile.html', {'user': user, 'quotes': quotes, 'order_history': order_history})
