@@ -1,41 +1,32 @@
+from datetime import datetime
+import os
 from django.test import TestCase, Client
-from .models import OrderInfo, OrderLineItem
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils import timezone
-from datetime import datetime
+from django.core.files.uploadedfile import SimpleUploadedFile
+from products.models import Product, ProductVariant, Collection
+from .models import OrderInfo, OrderLineItem
+
 
 # Create your tests here.
 
-class OrderTestCase(TestCase):
-    """ Testing of checkout models """
+class OrderInfoTest(TestCase):
+    """ Testing of OrderInfo model """
     
     def setUp(self):
-        user = User.objects.create_user(username="JohnDoe", password="password")
+        self.user = User.objects.create_user(username="JohnDoe", password="password")
         
-        OrderInfo.objects.create(customer=user, full_name="John Doe", phone_number="0851234567",
-                                street_address1="New Street", street_address2="New Street 2",
-                                town_or_city="Dublin", county="Dublin", country="Ireland",
-                                postcode="D12345", remember_me=True, date=timezone.now())
-        
-        # order_info = OrderInfo.objects.get(full_name="John Doe")
-                                
-        # OrderLineItem.objects.create(order_info=order_info, product_variant=product_variant, quantity=2, line_total=sum_line_total())
-        
-        
-        # def sum_line_total(self):
-        # return self.quantity * self.product_variant.price
-        
-        # def save(self, *args, **kwargs):
-        #     if self.line_total != self.quantity * self.product_variant.price:
-        #         self.line_total = self.sum_line_total()
-        #     super().save(*args, **kwargs)
- 
+        self.order_info = OrderInfo.objects.create(customer=self.user, full_name="John Doe",
+                                                   phone_number="0851234567", street_address1="New Street",
+                                                   street_address2="New Street 2",town_or_city="Dublin",
+                                                   county="Dublin", country="Ireland", postcode="D12345",
+                                                   remember_me=True, date=timezone.now())
+
 
     def test_customer_is_current_user(self):
         """Current User is correctly identified as customer"""
-        order_info = OrderInfo.objects.get(full_name="John Doe")
-        user = User.objects.get(username="JohnDoe")
-        self.assertEqual(order_info.customer, user)
+        self.assertEqual(self.order_info.customer, self.user)
     
         
     def test_order_info_has_fullname(self):
@@ -51,6 +42,69 @@ class OrderTestCase(TestCase):
         current_time = datetime.now().date()
         self.assertAlmostEqual(order_time, current_time)
         
+        
+class OrderLineItemTest(TestCase):
+    """ Testing of OrderLineItem Model """
+    
+    def setUp(self):
+        # Create User
+        self.user = User.objects.create_user(username="JohnDoe", password="password")
+        
+        # Create OrderInfo
+        self.order_info = OrderInfo.objects.create(customer=self.user, full_name="John Doe",
+                                                   phone_number="0851234567", street_address1="New Street",
+                                                   street_address2="New Street 2", town_or_city="Dublin",
+                                                   county="Dublin", country="Ireland", postcode="D12345",
+                                                   remember_me=True, date=timezone.now())
+        
+        # Create Collection
+        self.collection=Collection.objects.create(name="collection", current_series=True)
+        
+        # Create Image upload for Product
+        file_path = os.path.join(settings.BASE_DIR, "static/", "img/" , "camera-logo.jpg")
+        self.img = SimpleUploadedFile(name='camera-logo.jpg',
+                                      content=open(file_path, 'rb').read(), content_type='image/jpg')           
+        
+        # Create Product
+        self.product = Product.objects.create(name="photo", location="dublin",
+                                              collection=self.collection,
+                                              description="New Photo", image=self.img)
+         
+        # Create 2 product variants                      
+        self.product_variant_1 = ProductVariant.objects.create(product=self.product,
+                                                               size="120mmx240mm",
+                                                               price=35.00)
+        self.product_variant_2 = ProductVariant.objects.create(product=self.product,
+                                                               size="240mmx480mm",
+                                                               price=70.00)
+        
+        # Create 2 order line items with different product variant                     
+        self.order_line_1 = OrderLineItem.objects.create(order_info=self.order_info,
+                                                         product_variant=self.product_variant_1,
+                                                         quantity=2, line_total=70)
+                                     
+        self.order_line_2 = OrderLineItem.objects.create(order_info=self.order_info,
+                                                         product_variant=self.product_variant_2,
+                                                         quantity=2, line_total=140)
+                                     
+        
+    def test_order_line_1_order_info(self):
+        """Test if order_info in order_line_1 matches order_info"""
+        self.assertEqual(self.order_info, self.order_line_1.order_info)
+        
+    def test_order_line_2_order_info(self):
+        """Test if order_info in order_line_2 matches order_info"""
+        self.assertEqual(self.order_info, self.order_line_2.order_info)
+        
+    def test_order_line_1_product_variant(self):
+        """Test if product_variant in order_line_1 matches created product_variant_1"""
+        self.assertEqual(self.product_variant_1, self.order_line_1.product_variant)
+        
+    def test_order_line_2_product_variant(self):
+        """Test if product_variant in order_line_2 matches created product_variant_1"""
+        self.assertEqual(self.product_variant_2, self.order_line_2.product_variant)
+    
+
 
 class CheckoutViewsTest(TestCase):
     """ Testing of checkout views """
