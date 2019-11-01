@@ -43,6 +43,7 @@ def create_quote(request, order_id):
         quote_form = QuoteForm(request.POST)
         if quote_form.is_valid():
             quote = quote_form.save(commit=False)
+            quote.order = commission_order
             quote.date = timezone.now()
             quote.save()
             messages.success(request, "Quote successfully sent")

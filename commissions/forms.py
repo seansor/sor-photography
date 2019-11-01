@@ -21,4 +21,5 @@ class QuoteForm(forms.ModelForm):
 
     class Meta:
         model = Quote
-        exclude = ['price_total', 'date', 'accepted', 'rejected']
+        fields = ['price_works', 'price_travel']
+        #exclude = ['price_total', 'date', 'accepted', 'rejected']
