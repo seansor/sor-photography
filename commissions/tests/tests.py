@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
 # Create your tests here.
-@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'Skipping this test on Travis CI.')
+
 class CommissionViewsTest(TestCase):
     """ Testing of cart views """
     
