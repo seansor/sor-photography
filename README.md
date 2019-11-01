@@ -5,6 +5,14 @@
 ## A website to purchase photos taken by SOR Photography or to request 
 ## commissions
 
+**Notes For Reviewer**
+To have full access to the websites features the reviewer should login in as an
+admin user. To do this use the following credentials:
+
+username: admin
+email: admin@example.com
+password: 1NewUser
+
 This website allows users to purchase photographs from any of SOR Photography's
 featured collections or to request specially commissioned photographs.
 
