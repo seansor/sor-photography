@@ -71,9 +71,9 @@ in the project files in the "wireframes_erd" folder.
   price.
 * If the user wishes to puchase the items in their cart, i.e. proceed to checkout, 
   they will need to login or create an account. If they click on checkout and are 
-  not logged in they will be redirected to the login page.and the  create an account by selecting "Sign Up".
+  not logged in they will be redirected to the login page.
 * If a user is already registered they can simply login by entering either their 
-  username or password and clicking on "Login".
+  username or email and password and clicking on "Login".
 * A user that tries to login who is not registered will recieve feedback to that
   effect.
 * A user that is already registed, that tries to register again will recieve 
@@ -224,7 +224,8 @@ tools in these browsers were also used to test the website's responsiveness.
 
 The website displays well on all sizes of device. On small screen sizes
 the photographs and forms take up close to 100% of the screen width and less content 
-is shown in certain instances as designed.
+is shown in certain instances as designed. Larger tables have the ability to scroll 
+horizontally on small devices.
 
 ### Bugs
 No known bugs at this stage but the writing of automated testing is ongoing.
